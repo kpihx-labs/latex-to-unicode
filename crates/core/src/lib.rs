@@ -46,14 +46,75 @@ pub fn latex_to_unicode_block(latex: &str) -> String {
     renderer.render(&nodes)
 }
 
-/// Transform entire markdown documents by finding and converting math blocks ($$ and $) into Unicode.
+/// Transform entire markdown documents by finding and converting math blocks ($$, $, \[, \() into Unicode.
 pub fn transform_markdown(markdown: &str) -> String {
     let mut result = String::new();
     let chars: Vec<char> = markdown.chars().collect();
     let mut i = 0;
 
     while i < chars.len() {
-        // Check for $$ display math (multi-line supported)
+        // 1. Check for \[ ... \] display block math (multi-line supported)
+        if chars[i] == '\\' && i + 1 < chars.len() && chars[i + 1] == '[' {
+            let start = i;
+            i += 2;
+            let mut found_end = false;
+            let mut end = i;
+
+            while i + 1 < chars.len() {
+                if chars[i] == '\\' && chars[i + 1] == ']' {
+                    found_end = true;
+                    end = i;
+                    i += 2;
+                    break;
+                }
+                i += 1;
+            }
+
+            if found_end {
+                let formula: String = chars[start + 2..end].iter().collect();
+                let converted = latex_to_unicode_block(&formula);
+                result.push('\n');
+                result.push_str(&converted);
+                result.push('\n');
+            } else {
+                result.extend(&chars[start..]);
+                break;
+            }
+            continue;
+        }
+
+        // 2. Check for \( ... \) inline math
+        if chars[i] == '\\' && i + 1 < chars.len() && chars[i + 1] == '(' {
+            let start = i;
+            i += 2;
+            let mut found_end = false;
+            let mut end = i;
+
+            while i + 1 < chars.len() {
+                if chars[i] == '\\' && chars[i + 1] == ')' {
+                    found_end = true;
+                    end = i;
+                    i += 2;
+                    break;
+                }
+                if chars[i] == '\n' {
+                    break;
+                }
+                i += 1;
+            }
+
+            if found_end {
+                let formula: String = chars[start + 2..end].iter().collect();
+                let converted = latex_to_unicode(&formula);
+                result.push_str(&converted);
+            } else {
+                result.push(chars[start]);
+                i = start + 1;
+            }
+            continue;
+        }
+
+        // 3. Check for $$ display math (multi-line supported)
         if chars[i] == '$' && i + 1 < chars.len() && chars[i + 1] == '$' {
             let start = i;
             i += 2; // skip opening $$
@@ -83,7 +144,7 @@ pub fn transform_markdown(markdown: &str) -> String {
             continue;
         }
 
-        // Check for $ inline math
+        // 4. Check for $ inline math
         if chars[i] == '$' && (i == 0 || chars[i - 1] != '\\') {
             let start = i;
             i += 1; // skip opening $

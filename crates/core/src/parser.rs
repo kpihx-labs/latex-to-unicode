@@ -305,7 +305,7 @@ impl Parser {
 
     fn parse_environment(&mut self, env_name: &str) -> Option<MathNode> {
         let kind = match env_name {
-            "matrix" => MatrixKind::Plain,
+            "matrix" | "aligned" | "align" | "align*" | "split" | "gather" => MatrixKind::Plain,
             "pmatrix" => MatrixKind::Paren,
             "bmatrix" => MatrixKind::Bracket,
             "Bmatrix" => MatrixKind::Brace,
