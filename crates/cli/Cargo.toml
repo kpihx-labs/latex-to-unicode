@@ -1,0 +1,16 @@
+[package]
+name = "latex-to-unicode-cli"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CLI tool to render LaTeX formulas to beautiful Unicode text in terminals."
+
+[[bin]]
+name = "latex-to-unicode"
+path = "src/main.rs"
+
+[dependencies]
+latex-to-unicode = { path = "../core" }
+clap = { version = "4.5", features = ["derive"] }

@@ -1,0 +1,308 @@
+//! Unicode tables and mappings for mathematical LaTeX symbols.
+//!
+//! Provides lookup tables for:
+//! - Greek letters (lowercase, uppercase)
+//! - Number sets (\mathbb)
+//! - Calligraphic letters (\mathcal)
+//! - Fraktur letters (\mathfrak)
+//! - Bold and sans-serif math alphabets
+//! - Binary and relational operators
+//! - Arrows and logical connectives
+//! - Big operators, integrals, calculus symbols
+//! - Delimiters and brackets
+//! - Superscript and subscript mappings
+
+/// Returns the Unicode translation for a standard LaTeX math command if available.
+pub fn lookup_symbol(cmd: &str) -> Option<&'static str> {
+    match cmd {
+        // --- Greek Lowercase ---
+        "alpha" => Some("α"),
+        "beta" => Some("β"),
+        "gamma" => Some("γ"),
+        "delta" => Some("δ"),
+        "epsilon" | "varepsilon" => Some("ε"),
+        "zeta" => Some("ζ"),
+        "eta" => Some("η"),
+        "theta" | "vartheta" => Some("θ"),
+        "iota" => Some("ι"),
+        "kappa" => Some("κ"),
+        "lambda" => Some("λ"),
+        "mu" => Some("μ"),
+        "nu" => Some("ν"),
+        "xi" => Some("ξ"),
+        "pi" | "varpi" => Some("π"),
+        "rho" | "varrho" => Some("ρ"),
+        "sigma" | "varsigma" => Some("σ"),
+        "tau" => Some("τ"),
+        "upsilon" => Some("υ"),
+        "phi" | "varphi" => Some("φ"),
+        "chi" => Some("χ"),
+        "psi" => Some("ψ"),
+        "omega" => Some("ω"),
+
+        // --- Greek Uppercase ---
+        "Gamma" => Some("Γ"),
+        "Delta" => Some("Δ"),
+        "Theta" => Some("Θ"),
+        "Lambda" => Some("Λ"),
+        "Xi" => Some("Ξ"),
+        "Pi" => Some("Π"),
+        "Sigma" => Some("Σ"),
+        "Upsilon" => Some("Υ"),
+        "Phi" => Some("Φ"),
+        "Psi" => Some("Ψ"),
+        "Omega" => Some("Ω"),
+
+        // --- Basic Operations & Relations ---
+        "times" => Some("×"),
+        "cdot" | "centerdot" => Some("·"),
+        "div" => Some("÷"),
+        "pm" => Some("±"),
+        "mp" => Some("∓"),
+        "ast" | "star" => Some("★"),
+        "circ" => Some("∘"),
+        "bullet" => Some("•"),
+        "approx" => Some("≈"),
+        "neq" | "ne" => Some("≠"),
+        "equiv" => Some("≡"),
+        "leq" | "le" => Some("≤"),
+        "geq" | "ge" => Some("≥"),
+        "ll" => Some("≪"),
+        "gg" => Some("≫"),
+        "propto" => Some("∝"),
+        "sim" => Some("∼"),
+        "simeq" => Some("≃"),
+        "cong" => Some("≅"),
+        "perp" => Some("⊥"),
+        "parallel" => Some("∥"),
+
+        // --- Logic & Arrows ---
+        "to" | "rightarrow" => Some("→"),
+        "leftarrow" => Some("←"),
+        "Rightarrow" => Some("⇒"),
+        "implies" => Some("⟹"),
+        "Leftarrow" => Some("⇐"),
+        "leftrightarrow" => Some("↔"),
+        "Leftrightarrow" => Some("⇔"),
+        "iff" => Some("⟺"),
+        "longrightarrow" => Some("⟶"),
+        "longleftarrow" => Some("⟵"),
+        "Longrightarrow" => Some("⟹"),
+        "Longleftarrow" => Some("⟸"),
+        "longleftrightarrow" => Some("⟷"),
+        "Longleftrightarrow" => Some("⟺"),
+        "mapsto" => Some("↦"),
+        "uparrow" => Some("↑"),
+        "downarrow" => Some("↓"),
+        "Uparrow" => Some("⇑"),
+        "Downarrow" => Some("⇓"),
+        "hookrightarrow" => Some("↪"),
+        "hookleftarrow" => Some("↩"),
+        "forall" => Some("∀"),
+        "exists" => Some("∃"),
+        "nexists" => Some("∄"),
+        "therefore" => Some("∴"),
+        "because" => Some("∵"),
+        "neg" | "lnot" => Some("¬"),
+        "land" | "wedge" => Some("∧"),
+        "lor" | "vee" => Some("∨"),
+        "top" => Some("⊤"),
+        "bot" => Some("⊥"),
+        "vdash" => Some("⊢"),
+        "dashv" => Some("⊣"),
+        "models" => Some("⊨"),
+
+        // --- Set Theory ---
+        "in" => Some("∈"),
+        "notin" => Some("∉"),
+        "ni" | "owns" => Some("∋"),
+        "subset" => Some("⊂"),
+        "supset" => Some("⊃"),
+        "subseteq" => Some("⊆"),
+        "supseteq" => Some("⊇"),
+        "subsetneq" => Some("⊊"),
+        "supsetneq" => Some("⊋"),
+        "cup" => Some("∪"),
+        "cap" => Some("∩"),
+        "setminus" => Some("∖"),
+        "emptyset" | "varnothing" => Some("∅"),
+
+        // --- Calculus & Analysis ---
+        "infty" => Some("∞"),
+        "partial" => Some("∂"),
+        "nabla" => Some("∇"),
+        "int" => Some("∫"),
+        "iint" => Some("∬"),
+        "iiint" => Some("∭"),
+        "oint" => Some("∮"),
+        "sum" => Some("∑"),
+        "prod" => Some("∏"),
+        "coprod" => Some("∐"),
+        "bigoplus" => Some("⨁"),
+        "bigotimes" => Some("⨂"),
+        "bigcup" => Some("⋃"),
+        "bigcap" => Some("⋂"),
+        "oplus" => Some("⊕"),
+        "otimes" => Some("⊗"),
+        "odot" => Some("⊙"),
+        "prime" => Some("′"),
+        "hbar" => Some("ℏ"),
+        "ell" => Some("ℓ"),
+        "Re" => Some("ℜ"),
+        "Im" => Some("ℑ"),
+        "aleph" => Some("ℵ"),
+        "angle" => Some("∠"),
+
+        // --- Delimiters & Brackets ---
+        "langle" => Some("⟨"),
+        "rangle" => Some("⟩"),
+        "lceil" => Some("⌈"),
+        "rceil" => Some("⌉"),
+        "lfloor" => Some("⌊"),
+        "rfloor" => Some("⌋"),
+        "lVert" | "rVert" => Some("‖"),
+
+        // --- Dots ---
+        "cdots" => Some("⋯"),
+        "ldots" | "dots" => Some("…"),
+        "vdots" => Some("⋮"),
+        "ddots" => Some("⋱"),
+
+        // --- Common Math Functions ---
+        "sin" => Some("sin"),
+        "cos" => Some("cos"),
+        "tan" => Some("tan"),
+        "arcsin" => Some("arcsin"),
+        "arccos" => Some("arccos"),
+        "arctan" => Some("arctan"),
+        "sinh" => Some("sinh"),
+        "cosh" => Some("cosh"),
+        "tanh" => Some("tanh"),
+        "log" => Some("log"),
+        "ln" => Some("ln"),
+        "exp" => Some("exp"),
+        "det" => Some("det"),
+        "gcd" => Some("gcd"),
+        "deg" => Some("deg"),
+        "min" => Some("min"),
+        "max" => Some("max"),
+        "sup" => Some("sup"),
+        "inf" => Some("inf"),
+        "lim" => Some("lim"),
+
+        // --- Spacing ---
+        "," | ":" | ";" => Some(" "),
+        "!" => Some(""),
+        "quad" => Some("  "),
+        "qquad" => Some("    "),
+
+        _ => None,
+    }
+}
+
+/// Lookup for blackboard bold letters (\mathbb{...})
+pub fn mathbb(c: char) -> Option<char> {
+    match c {
+        'A' => Some('𝔸'), 'B' => Some('𝔹'), 'C' => Some('ℂ'), 'D' => Some('𝔻'),
+        'E' => Some('𝔼'), 'F' => Some('𝔽'), 'G' => Some('𝔾'), 'H' => Some('ℍ'),
+        'I' => Some('𝕀'), 'J' => Some('𝕁'), 'K' => Some('𝕂'), 'L' => Some('𝕃'),
+        'M' => Some('𝕄'), 'N' => Some('ℕ'), 'O' => Some('𝕆'), 'P' => Some('ℙ'),
+        'Q' => Some('ℚ'), 'R' => Some('ℝ'), 'S' => Some('𝕊'), 'T' => Some('𝕋'),
+        'U' => Some('𝕌'), 'V' => Some('𝕍'), 'W' => Some('𝕎'), 'X' => Some('𝕏'),
+        'Y' => Some('𝕐'), 'Z' => Some('ℤ'),
+        '0' => Some('𝟘'), '1' => Some('𝟙'), '2' => Some('𝟚'), '3' => Some('𝟛'),
+        '4' => Some('𝟜'), '5' => Some('𝟝'), '6' => Some('𝟞'), '7' => Some('𝟟'),
+        '8' => Some('𝟠'), '9' => Some('𝟡'),
+        _ => None,
+    }
+}
+
+/// Lookup for calligraphic / script letters (\mathcal{...})
+pub fn mathcal(c: char) -> Option<char> {
+    match c {
+        'A' => Some('𝒜'), 'B' => Some('ℬ'), 'C' => Some('𝒞'), 'D' => Some('𝒟'),
+        'E' => Some('ℰ'), 'F' => Some('ℱ'), 'G' => Some('𝒢'), 'H' => Some('ℋ'),
+        'I' => Some('ℐ'), 'J' => Some('𝒥'), 'K' => Some('𝒦'), 'L' => Some('ℒ'),
+        'M' => Some('ℳ'), 'N' => Some('𝒩'), 'O' => Some('𝒪'), 'P' => Some('𝒫'),
+        'Q' => Some('𝒬'), 'R' => Some('ℛ'), 'S' => Some('𝒮'), 'T' => Some('𝒯'),
+        'U' => Some('𝒰'), 'V' => Some('𝒱'), 'W' => Some('𝒲'), 'X' => Some('𝒳'),
+        'Y' => Some('𝒴'), 'Z' => Some('𝒵'),
+        _ => None,
+    }
+}
+
+/// Lookup for Fraktur letters (\mathfrak{...})
+pub fn mathfrak(c: char) -> Option<char> {
+    match c {
+        'A' => Some('𝔄'), 'B' => Some('𝔅'), 'C' => Some('ℭ'), 'D' => Some('𝔇'),
+        'E' => Some('𝔈'), 'F' => Some('𝔉'), 'G' => Some('𝔊'), 'H' => Some('ℌ'),
+        'I' => Some('ℑ'), 'J' => Some('𝔍'), 'K' => Some('𝔎'), 'L' => Some('𝔏'),
+        'M' => Some('𝔐'), 'N' => Some('𝔑'), 'O' => Some('𝔒'), 'P' => Some('𝔓'),
+        'Q' => Some('𝔔'), 'R' => Some('ℜ'), 'S' => Some('𝔖'), 'T' => Some('𝔗'),
+        'U' => Some('𝔘'), 'V' => Some('𝔙'), 'W' => Some('𝔚'), 'X' => Some('𝔛'),
+        'Y' => Some('𝔜'), 'Z' => Some('ℨ'),
+        'a' => Some('𝔞'), 'b' => Some('𝔟'), 'c' => Some('𝔠'), 'd' => Some('𝔡'),
+        'e' => Some('𝔢'), 'f' => Some('𝔣'), 'g' => Some('𝔤'), 'h' => Some('𝔥'),
+        'i' => Some('𝔦'), 'j' => Some('𝔧'), 'k' => Some('𝔨'), 'l' => Some('𝔩'),
+        'm' => Some('𝔪'), 'n' => Some('𝔫'), 'o' => Some('𝔬'), 'p' => Some('𝔭'),
+        'q' => Some('𝔮'), 'r' => Some('𝔯'), 's' => Some('𝔰'), 't' => Some('𝔱'),
+        'u' => Some('𝔲'), 'v' => Some('𝔳'), 'w' => Some('𝔴'), 'x' => Some('𝔵'),
+        'y' => Some('𝔶'), 'z' => Some('𝔷'),
+        _ => None,
+    }
+}
+
+/// Convert a single character to Unicode superscript if available.
+pub fn to_superscript(c: char) -> Option<char> {
+    match c {
+        '0' => Some('⁰'), '1' => Some('¹'), '2' => Some('²'), '3' => Some('³'),
+        '4' => Some('⁴'), '5' => Some('⁵'), '6' => Some('⁶'), '7' => Some('⁷'),
+        '8' => Some('⁸'), '9' => Some('⁹'),
+        '+' => Some('⁺'), '-' => Some('⁻'), '=' => Some('⁼'), '(' => Some('⁽'), ')' => Some('⁾'),
+        'a' => Some('ᵃ'), 'b' => Some('ᵇ'), 'c' => Some('ᶜ'), 'd' => Some('ᵈ'),
+        'e' => Some('ᵉ'), 'f' => Some('ᶠ'), 'g' => Some('ᵍ'), 'h' => Some('ʰ'),
+        'i' => Some('ⁱ'), 'j' => Some('ʲ'), 'k' => Some('ᵏ'), 'l' => Some('ˡ'),
+        'm' => Some('ᵐ'), 'n' => Some('ⁿ'), 'o' => Some('ᵒ'), 'p' => Some('ᵖ'),
+        'r' => Some('ʳ'), 's' => Some('ˢ'), 't' => Some('ᵗ'), 'u' => Some('ᵘ'),
+        'v' => Some('ᵛ'), 'w' => Some('ʷ'), 'x' => Some('ˣ'), 'y' => Some('ʸ'), 'z' => Some('ᶻ'),
+        'A' => Some('ᴬ'), 'B' => Some('ᴮ'), 'D' => Some('ᴰ'), 'E' => Some('ᴱ'),
+        'G' => Some('ᴳ'), 'H' => Some('ᴴ'), 'I' => Some('ᴵ'), 'J' => Some('ᴶ'),
+        'K' => Some('ᴷ'), 'L' => Some('ᴸ'), 'M' => Some('ᴹ'), 'N' => Some('ᴺ'),
+        'O' => Some('ᴼ'), 'P' => Some('ᴾ'), 'R' => Some('ᴿ'), 'T' => Some('ᵀ'),
+        'U' => Some('ᵁ'), 'V' => Some('ⱽ'), 'W' => Some('ᵂ'),
+        '∞' => Some('^'), // fallback indicator
+        _ => None,
+    }
+}
+
+/// Convert a single character to Unicode subscript if available.
+pub fn to_subscript(c: char) -> Option<char> {
+    match c {
+        '0' => Some('₀'), '1' => Some('₁'), '2' => Some('₂'), '3' => Some('₃'),
+        '4' => Some('₄'), '5' => Some('₅'), '6' => Some('₆'), '7' => Some('₇'),
+        '8' => Some('₈'), '9' => Some('₉'),
+        '+' => Some('₊'), '-' => Some('₋'), '=' => Some('₌'), '(' => Some('₍'), ')' => Some('₎'),
+        'a' => Some('ₐ'), 'e' => Some('ₑ'), 'h' => Some('ₕ'), 'i' => Some('ᵢ'),
+        'j' => Some('ⱼ'), 'k' => Some('ₖ'), 'l' => Some('ₗ'), 'm' => Some('ₘ'),
+        'n' => Some('ₙ'), 'o' => Some('ₒ'), 'p' => Some('ₚ'), 'r' => Some('ᵣ'),
+        's' => Some('ₛ'), 't' => Some('ₜ'), 'u' => Some('ᵤ'), 'v' => Some('ᵥ'), 'x' => Some('ₓ'),
+        _ => None,
+    }
+}
+
+/// Returns the combining Unicode mark for accents.
+pub fn lookup_combining_accent(cmd: &str) -> Option<char> {
+    match cmd {
+        "vec" => Some('\u{20D7}'),       // combining right arrow above
+        "hat" | "widehat" => Some('\u{0302}'), // combining circumflex accent
+        "bar" | "overline" => Some('\u{0304}'),// combining macron
+        "dot" => Some('\u{0307}'),       // combining dot above
+        "ddot" => Some('\u{0308}'),      // combining diaeresis
+        "tilde" | "widetilde" => Some('\u{0303}'), // combining tilde
+        "acute" => Some('\u{0301}'),
+        "grave" => Some('\u{0300}'),
+        "check" => Some('\u{030C}'),
+        "breve" => Some('\u{0306}'),
+        _ => None,
+    }
+}

@@ -1,0 +1,6 @@
+target/
+pkg/
+pkg-node/
+**/*.rs.bk
+*.swp
+.DS_Store

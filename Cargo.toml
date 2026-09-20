@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/cli",
+    "crates/wasm",
+    "crates/c-api",
+]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Ivann H. KAMDEM POUOKAM <kapoivha@gmail.com>"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/kpihx-labs/latex-to-unicode"
+homepage = "https://github.com/kpihx-labs/latex-to-unicode"
+readme = "README.md"
+keywords = ["latex", "unicode", "math", "terminal", "tui"]
+categories = ["command-line-utilities", "text-processing"]
