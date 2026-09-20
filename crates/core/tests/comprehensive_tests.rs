@@ -3,7 +3,9 @@ use latex_to_unicode::{latex_to_unicode, latex_to_unicode_block, transform_markd
 #[test]
 fn test_advanced_greek_and_logic() {
     assert_eq!(
-        latex_to_unicode(r"\forall x \in \mathbb{R}, \exists y \in \mathbb{C} \implies x \leq y \land y \neq x"),
+        latex_to_unicode(
+            r"\forall x \in \mathbb{R}, \exists y \in \mathbb{C} \implies x \leq y \land y \neq x"
+        ),
         "∀ x ∈ ℝ, ∃ y ∈ ℂ ⟹ x ≤ y ∧ y ≠ x"
     );
     assert_eq!(
@@ -15,7 +17,9 @@ fn test_advanced_greek_and_logic() {
 #[test]
 fn test_complex_derivatives_and_integrals() {
     assert_eq!(
-        latex_to_unicode(r"\oint_{\partial \Omega} \vec{F} \cdot d\vec{r} = \iint_\Omega (\nabla \times \vec{F}) \cdot d\vec{S}"),
+        latex_to_unicode(
+            r"\oint_{\partial \Omega} \vec{F} \cdot d\vec{r} = \iint_\Omega (\nabla \times \vec{F}) \cdot d\vec{S}"
+        ),
         "∮_(∂ Ω) F⃗ · dr⃗ = ∬_(Ω) (∇ × F⃗) · dS⃗"
     );
 }

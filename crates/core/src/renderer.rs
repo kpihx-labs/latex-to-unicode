@@ -75,7 +75,12 @@ impl Renderer {
                     .unwrap_or_default();
                 let sub_str = self.render_inline_node(sub);
                 let exp_str = self.render_inline_node(exp);
-                format!("{}{}{}", base_str, to_unicode_sub(&sub_str), to_unicode_sup(&exp_str))
+                format!(
+                    "{}{}{}",
+                    base_str,
+                    to_unicode_sub(&sub_str),
+                    to_unicode_sup(&exp_str)
+                )
             }
 
             MathNode::Frac { num, den } => {
@@ -272,7 +277,11 @@ impl Renderer {
             }
 
             let content = row_cells.join("   ");
-            lines.push(format!("  {} {} {}", left_delim, content, right_delim).trim_end().to_string());
+            lines.push(
+                format!("  {} {} {}", left_delim, content, right_delim)
+                    .trim_end()
+                    .to_string(),
+            );
         }
 
         lines.join("\n")
