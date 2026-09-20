@@ -298,6 +298,12 @@ fn to_unicode_sup(s: &str) -> String {
     if s == "∞" {
         return "^∞".to_string();
     }
+    if s == "+∞" {
+        return "⁺^∞".to_string();
+    }
+    if s == "-∞" {
+        return "⁻^∞".to_string();
+    }
     let mut res = String::new();
     let mut all_converted = true;
 
@@ -334,6 +340,15 @@ fn to_unicode_sup(s: &str) -> String {
 }
 
 fn to_unicode_sub(s: &str) -> String {
+    if s == "∞" {
+        return "_∞".to_string();
+    }
+    if s == "+∞" {
+        return "₊_∞".to_string();
+    }
+    if s == "-∞" {
+        return "₋_∞".to_string();
+    }
     let mut res = String::new();
     let mut all_converted = true;
 
