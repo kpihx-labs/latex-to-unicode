@@ -60,6 +60,16 @@ pub enum MathNode {
     /// Overline / underline
     Overline(Box<MathNode>),
     Underline(Box<MathNode>),
+    /// Underbrace: `\underbrace{body}_{label}`
+    Underbrace {
+        body: Box<MathNode>,
+        label: Option<Box<MathNode>>,
+    },
+    /// Overbrace: `\overbrace{body}^{label}`
+    Overbrace {
+        body: Box<MathNode>,
+        label: Option<Box<MathNode>>,
+    },
     /// Plain space
     Space(String),
 }

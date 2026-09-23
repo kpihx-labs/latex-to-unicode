@@ -161,6 +161,14 @@ pub fn lookup_symbol(cmd: &str) -> Option<&'static str> {
         "lfloor" => Some("⌊"),
         "rfloor" => Some("⌋"),
         "lVert" | "rVert" => Some("‖"),
+        "vert" | "|" => Some("|"),
+        "mid" => Some("∣"),
+        "nmid" => Some("∤"),
+
+        // --- Squares / QED ---
+        "square" => Some("□"),
+        "blacksquare" => Some("■"),
+        "qed" | "qedsymbol" => Some("∎"),
 
         // --- Dots ---
         "cdots" => Some("⋯"),

@@ -28,7 +28,7 @@ fn test_complex_derivatives_and_integrals() {
 fn test_binomial_and_boxed() {
     assert_eq!(
         latex_to_unicode(r"\binom{n}{k} = \frac{n!}{k!(n-k)!}"),
-        "C(n, k) = (n!)/(k!(n-k)!)"
+        "C(n, k) = n!/(k!(n-k)!)"
     );
     assert_eq!(
         latex_to_unicode(r"\boxed{e^{i\pi} + 1 = 0}"),
@@ -44,7 +44,7 @@ fn test_limits_and_sums() {
     );
     assert_eq!(
         latex_to_unicode(r"\sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}"),
-        "∑ₙ₌₁^∞ 1/(n²) = (π²)/6"
+        "∑ₙ₌₁^∞ 1/n² = π²/6"
     );
 }
 

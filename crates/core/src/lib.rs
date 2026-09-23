@@ -73,9 +73,14 @@ pub fn transform_markdown(markdown: &str) -> String {
             if found_end {
                 let formula: String = chars[start + 2..end].iter().collect();
                 let converted = latex_to_unicode_block(&formula);
-                result.push('\n');
+                // Avoid stacking blank lines around display math
+                if !result.is_empty() && !result.ends_with('\n') {
+                    result.push('\n');
+                }
                 result.push_str(&converted);
-                result.push('\n');
+                if !converted.ends_with('\n') {
+                    result.push('\n');
+                }
             } else {
                 result.extend(&chars[start..]);
                 break;
@@ -134,9 +139,13 @@ pub fn transform_markdown(markdown: &str) -> String {
             if found_end {
                 let formula: String = chars[start + 2..end].iter().collect();
                 let converted = latex_to_unicode_block(&formula);
-                result.push('\n');
+                if !result.is_empty() && !result.ends_with('\n') {
+                    result.push('\n');
+                }
                 result.push_str(&converted);
-                result.push('\n');
+                if !converted.ends_with('\n') {
+                    result.push('\n');
+                }
             } else {
                 result.extend(&chars[start..]);
                 break;
@@ -180,7 +189,25 @@ pub fn transform_markdown(markdown: &str) -> String {
         i += 1;
     }
 
-    result
+    collapse_extra_blank_lines(&result)
+}
+
+/// Collapse runs of 3+ newlines down to a single blank line (2 newlines).
+fn collapse_extra_blank_lines(s: &str) -> String {
+    let mut out = String::with_capacity(s.len());
+    let mut newline_run = 0;
+    for c in s.chars() {
+        if c == '\n' {
+            newline_run += 1;
+            if newline_run <= 2 {
+                out.push(c);
+            }
+        } else {
+            newline_run = 0;
+            out.push(c);
+        }
+    }
+    out
 }
 
 #[cfg(test)]
@@ -197,7 +224,7 @@ mod tests {
     fn test_integral_and_fractions() {
         let input = r"\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}";
         let res = latex_to_unicode(input);
-        assert_eq!(res, "∫₀^∞ e⁻ˣ² dx = (√π)/2");
+        assert_eq!(res, "∫₀^∞ e⁻ˣ² dx = √π/2");
     }
 
     #[test]

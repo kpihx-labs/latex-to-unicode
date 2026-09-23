@@ -240,6 +240,39 @@ impl Parser {
                 let arg = self.parse_single_arg().unwrap_or(MathNode::Text("".into()));
                 Some(MathNode::Underline(Box::new(arg)))
             }
+            "underbrace" => {
+                let body = self.parse_single_arg().unwrap_or(MathNode::Text("".into()));
+                self.skip_whitespace();
+                let mut label = None;
+                if self.peek() == Some('_') {
+                    self.advance();
+                    label = Some(Box::new(
+                        self.parse_single_arg().unwrap_or(MathNode::Text("".into())),
+                    ));
+                }
+                Some(MathNode::Underbrace {
+                    body: Box::new(body),
+                    label,
+                })
+            }
+            "overbrace" => {
+                let body = self.parse_single_arg().unwrap_or(MathNode::Text("".into()));
+                self.skip_whitespace();
+                let mut label = None;
+                if self.peek() == Some('^') {
+                    self.advance();
+                    label = Some(Box::new(
+                        self.parse_single_arg().unwrap_or(MathNode::Text("".into())),
+                    ));
+                }
+                Some(MathNode::Overbrace {
+                    body: Box::new(body),
+                    label,
+                })
+            }
+            // Sizing wrappers: \bigl( \Bigr] \biggl\{ … — emit the delimiter only
+            "big" | "Big" | "bigg" | "Bigg" | "bigl" | "Bigl" | "biggl" | "Biggl" | "bigr"
+            | "Bigr" | "biggr" | "Biggr" => Some(self.parse_sized_delimiter()),
             _ => {
                 if let Some(sym) = symbols::lookup_symbol(&name) {
                     Some(MathNode::Symbol(sym.to_string()))
@@ -247,6 +280,43 @@ impl Parser {
                     Some(MathNode::Text(format!("\\{}", name)))
                 }
             }
+        }
+    }
+
+    /// Parse the delimiter that follows `\bigl` / `\Bigr` / etc.
+    fn parse_sized_delimiter(&mut self) -> MathNode {
+        self.skip_whitespace();
+        if self.peek() == Some('\\') {
+            self.advance();
+            let mut name = String::new();
+            if let Some(c) = self.peek() {
+                if !c.is_alphabetic() {
+                    self.advance();
+                    name.push(c);
+                } else {
+                    while let Some(ch) = self.peek() {
+                        if ch.is_alphabetic() {
+                            self.advance();
+                            name.push(ch);
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+            if let Some(sym) = symbols::lookup_symbol(&name) {
+                MathNode::Symbol(sym.to_string())
+            } else {
+                match name.as_str() {
+                    "{" | "lbrace" => MathNode::Symbol("{".into()),
+                    "}" | "rbrace" => MathNode::Symbol("}".into()),
+                    _ => MathNode::Text(format!("\\{}", name)),
+                }
+            }
+        } else if let Some(c) = self.advance() {
+            MathNode::Symbol(c.to_string())
+        } else {
+            MathNode::Text(String::new())
         }
     }
 

@@ -5,7 +5,7 @@ use std::io::{self, Read};
 #[command(
     name = "latex-to-unicode",
     author = "Ivann H. KAMDEM POUOKAM <kapoivha@gmail.com>",
-    version = "0.1.0",
+    version = "0.1.1",
     about = "Renders LaTeX mathematical formulas into clean, high-fidelity Unicode text in CLI."
 )]
 struct Args {
